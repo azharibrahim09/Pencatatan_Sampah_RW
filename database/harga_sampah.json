@@ -1,0 +1,48 @@
+{
+  "kategori": [
+    {
+      "id": "plastik_botol",
+      "nama": "Plastik Botol (PET)",
+      "satuan": "kg",
+      "harga_per_satuan": 5000,
+      "ikon": "🧴"
+    },
+    {
+      "id": "plastik_keras",
+      "nama": "Plastik Keras (HDPE)",
+      "satuan": "kg",
+      "harga_per_satuan": 4000,
+      "ikon": "🪣"
+    },
+    {
+      "id": "plastik_kresek",
+      "nama": "Plastik Kresek",
+      "satuan": "kg",
+      "harga_per_satuan": 1000,
+      "ikon": "🛍️"
+    },
+    {
+      "id": "kertas_koran",
+      "nama": "Kertas Koran / HVS",
+      "satuan": "kg",
+      "harga_per_satuan": 1000,
+      "ikon": "📰"
+    },
+    {
+      "id": "kertas_kardus",
+      "nama": "Kardus / Karton",
+      "satuan": "kg",
+      "harga_per_satuan": 2000,
+      "ikon": "📦"
+    },
+    {
+      "id": "minyak_jelantah",
+      "nama": "Minyak Jelantah",
+      "satuan": "liter",
+      "harga_per_satuan": 6000,
+      "ikon": "🫙"
+    }
+  ],
+  "terakhir_diperbarui": "2025-06-01",
+  "keterangan": "Harga dalam Rupiah, dapat berubah sewaktu-waktu"
+}

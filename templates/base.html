@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="theme-color" content="#1a2e1a"/>
+  <title>{% block title %}Bank Sampah RW{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
+  <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}"/>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-inner">
+      <span class="nav-logo">♻️ Bank Sampah RW</span>
+      <div class="nav-links">
+        <a href="{{ url_for('index') }}" class="nav-link">Cek Saldo</a>
+        <a href="{{ url_for('admin_dashboard') }}" class="nav-link nav-admin">Admin</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="main-content">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for cat, msg in messages %}
+          <div class="alert alert-{{ cat }}">{{ msg }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="footer">
+    <p>© 2025 Bank Sampah Digital RW · Bersih, Mudah, Transparan</p>
+  </footer>
+</body>
+</html>

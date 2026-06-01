@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}Cek Saldo Warga{% endblock %}
+
+{% block content %}
+<div class="hero-search">
+  <div class="hero-icon">♻️</div>
+  <h1 class="hero-title">Cek Saldo Tabungan</h1>
+  <p class="hero-sub">Masukkan ID warga untuk melihat saldo dan riwayat setoran</p>
+</div>
+
+<div class="card">
+  <form method="POST" action="{{ url_for('index') }}">
+    <div class="form-group">
+      <label class="form-label">ID Warga</label>
+      <input type="text" name="id_warga" class="form-input"
+       placeholder="Contoh: WRG-001"
+       autocomplete="off"
+       autocorrect="off"
+       autocapitalize="none"
+       spellcheck="false" required/>
+    </div>
+    <button type="submit" class="btn btn-primary">🔍 Cari Saldo</button>
+  </form>
+</div>
+
+{% if warga %}
+<div class="saldo-hero">
+  <span class="badge-id">{{ warga.id }}</span>
+  <div class="nama">{{ warga.nama }}</div>
+  <div class="alamat">{{ warga.alamat }}</div>
+  <div class="label">Total Saldo Tabungan</div>
+  <div class="saldo-amount">Rp {{ "{:,}".format(warga.saldo).replace(",", ".") }}</div>
+  <div class="saldo-unit">dapat dicairkan ke pengurus RW</div>
+</div>
+
+<div class="section-header">
+  <span class="section-title">📋 Riwayat Setoran</span>
+  <span style="font-size:0.8rem;color:var(--text-muted)">{{ warga.riwayat_setoran|length }} transaksi</span>
+</div>
+
+{% if warga.riwayat_setoran %}
+  {% for trx in warga.riwayat_setoran %}
+  <div class="setoran-item">
+    <div class="setoran-meta">
+      <div class="setoran-tanggal">📅 {{ trx.tanggal }}</div>
+      <div class="setoran-items">
+        {% for item in trx.items %}
+          {{ item.kategori.replace("_"," ").title() }} · {{ item.berat_kg }} kg
+        {% endfor %}
+      </div>
+      <div class="setoran-petugas">Petugas: {{ trx.petugas }}</div>
+    </div>
+    <div class="setoran-total">+Rp {{ "{:,}".format(trx.total).replace(",", ".") }}</div>
+  </div>
+  {% endfor %}
+{% else %}
+  <div class="empty-state"><span>🗃️</span>Belum ada riwayat setoran.</div>
+{% endif %}
+{% endif %}
+
+{% endblock %}

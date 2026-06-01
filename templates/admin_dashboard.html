@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<h2 style="font-size:1.1rem;font-weight:800;color:var(--green-dark);margin-bottom:1rem;">
+  🛠️ Dashboard Admin
+</h2>
+
+<div class="stat-grid">
+  <div class="stat-card">
+    <div class="stat-val">{{ warga_list|length }}</div>
+    <div class="stat-label">Total Warga</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-val">{{ total_transaksi }}</div>
+    <div class="stat-label">Total Transaksi</div>
+  </div>
+  <div class="stat-card" style="grid-column:1/-1">
+    <div class="stat-val" style="font-size:1.3rem">
+      Rp {{ "{:,}".format(total_saldo).replace(",", ".") }}
+    </div>
+    <div class="stat-label">Total Saldo Beredar</div>
+  </div>
+</div>
+
+<details open>
+  <summary>➕ Input Setoran Baru</summary>
+  <div style="padding-top:0.75rem">
+    <form method="POST" action="{{ url_for('input_setoran') }}">
+      <div class="form-group">
+        <label class="form-label">ID Warga</label>
+        <select name="id_warga" class="form-select" required>
+          <option value="">-- Pilih Warga --</option>
+          {% for w in warga_list %}
+            <option value="{{ w.id }}">{{ w.id }} · {{ w.nama }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Jenis Sampah</label>
+        <select name="kategori" class="form-select" required>
+          <option value="">-- Pilih Kategori --</option>
+          {% for h in harga_list %}
+            <option value="{{ h.id }}">
+              {{ h.ikon }} {{ h.nama }} — Rp {{ "{:,}".format(h.harga_per_satuan).replace(",",".") }}/{{ h.satuan }}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Berat (kg / liter)</label>
+        <input type="number" name="berat" class="form-input"
+               step="0.1" min="0.1" placeholder="Contoh: 2.5" required/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Nama Petugas</label>
+        <input type="text" name="petugas" class="form-input"
+               placeholder="Nama petugas timbang" required/>
+      </div>
+      <button type="submit" class="btn btn-primary">💾 Simpan Transaksi</button>
+    </form>
+  </div>
+</details>
+
+<details>
+  <summary>👤 Daftarkan Warga Baru</summary>
+  <div style="padding-top:0.75rem">
+    <form method="POST" action="{{ url_for('tambah_warga') }}">
+      <div class="form-group">
+        <label class="form-label">Nama Lengkap</label>
+        <input type="text" name="nama" class="form-input" placeholder="Nama warga" required/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Alamat</label>
+        <input type="text" name="alamat" class="form-input"
+               placeholder="Jl. ... No. ... RT/RW ..." required/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">No. HP (opsional)</label>
+        <input type="tel" name="no_hp" class="form-input" placeholder="08xx-xxxx-xxxx"/>
+      </div>
+      <button type="submit" class="btn btn-gold">✅ Daftarkan Warga</button>
+    </form>
+  </div>
+</details>
+
+<details>
+  <summary>💰 Perbarui Harga Sampah</summary>
+  <div style="padding-top:0.75rem">
+    <form method="POST" action="{{ url_for('update_harga') }}">
+      {% for h in harga_list %}
+      <div class="form-group">
+        <label class="form-label">{{ h.ikon }} {{ h.nama }} (Rp/{{ h.satuan }})</label>
+        <input type="number" name="{{ h.id }}" class="form-input"
+               value="{{ h.harga_per_satuan }}" min="0" required/>
+      </div>
+      {% endfor %}
+      <button type="submit" class="btn btn-outline">📝 Simpan Harga</button>
+    </form>
+  </div>
+</details>
+
+<hr class="divider"/>
+<div class="section-header">
+  <span class="section-title">👥 Daftar Warga ({{ warga_list|length }})</span>
+</div>
+
+{% for w in warga_list %}
+<div class="warga-item">
+  <div>
+    <div class="warga-nama">{{ w.nama }}</div>
+    <div class="warga-id">{{ w.id }} · {{ w.riwayat_setoran|length }} transaksi</div>
+  </div>
+  <div class="warga-saldo">Rp {{ "{:,}".format(w.saldo).replace(",", ".") }}</div>
+</div>
+{% else %}
+<div class="empty-state"><span>👥</span>Belum ada warga terdaftar.</div>
+{% endfor %}
+
+{% endblock %}

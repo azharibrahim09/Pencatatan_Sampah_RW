@@ -1,0 +1,59 @@
+{
+  "warga": [
+    {
+      "id": "WRG-001",
+      "nama": "Siti Rahayu",
+      "alamat": "Jl. Melati No. 12, RT 03/RW 05",
+      "no_hp": "081234567890",
+      "tanggal_daftar": "2025-01-10",
+      "saldo": 47500,
+      "riwayat_setoran": [
+        {
+          "id_transaksi": "TRX-20250301-001",
+          "tanggal": "2025-03-01",
+          "items": [
+            {
+              "kategori": "plastik_keras",
+              "berat_kg": 1.5,
+              "subtotal": 6000
+            },
+            {
+              "kategori": "kertas_koran",
+              "berat_kg": 2.0,
+              "subtotal": 2000
+            }
+          ],
+          "total": 8000,
+          "petugas": "Pak Budi"
+        },
+        {
+          "id_transaksi": "TRX-20250315-003",
+          "tanggal": "2025-03-15",
+          "items": [
+            {
+              "kategori": "minyak_jelantah",
+              "berat_kg": 1.0,
+              "subtotal": 6000
+            },
+            {
+              "kategori": "plastik_botol",
+              "berat_kg": 3.0,
+              "subtotal": 15000
+            }
+          ],
+          "total": 21000,
+          "petugas": "Pak Budi"
+        }
+      ]
+    },
+    {
+      "id": "WRG-002",
+      "nama": "Azhar Ibrahim",
+      "alamat": "jl.lapangan koni 2",
+      "no_hp": "",
+      "tanggal_daftar": "2026-06-01",
+      "saldo": 0,
+      "riwayat_setoran": []
+    }
+  ]
+}
